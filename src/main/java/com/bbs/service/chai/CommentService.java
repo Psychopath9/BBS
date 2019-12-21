@@ -1,0 +1,30 @@
+package com.bbs.service.chai;
+
+import com.bbs.dao.chai.CommentDao;
+import com.bbs.entity.Comment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+
+@Service
+public class CommentService {
+    @Autowired
+    private CommentDao dao;
+
+
+    /**
+     * 插入回复
+     * @param comment
+     * @return
+     */
+    public int insert(Comment comment){
+        return dao.insertComments(comment.getId().getPostid(),comment.getId().getUserid(),comment.getContent(),comment.getTime(),comment.getAccept());
+    }
+    /**
+     * 采纳回复
+     */
+    public int updateAccept(int accept, int postid,int userid){
+        return dao.updateAccept(accept,postid,userid);
+    }
+}
