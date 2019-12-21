@@ -25,7 +25,7 @@ public class UserService {
             }
             return 1;
         }
-    }
+    } 
 
     public List<User> findByUserid(Integer id) {
         return userDao.findByUserid(id);
