@@ -2,6 +2,8 @@ package com.bbs.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -43,7 +45,7 @@ public class Post {
      * 帖子发布时间
      */
     @Column(name = "post_time")
-    private Date posttime;
+    private Timestamp posttime;
     /**
      * 帖子浏览数量
      */
@@ -64,6 +66,26 @@ public class Post {
      */
     @Column(name = "is_solved")
     private int issolved;
+    public Post(){
+
+    }
+    public Post(int postid,String postcontent){
+        this.postid = postid;
+        this.postcontent = postcontent;
+
+    }
+    public Post(int userid, String posttitle, String postcontent, int posttop, int highli, Timestamp posttime, int viewnumber, int bonus, int postpoint, int issolved){
+        this.userid = userid;
+        this.posttitle = posttitle;
+        this.postcontent = postcontent;
+        this.posttop = posttop;
+        this.highli = highli;
+        this.posttime = posttime;
+        this.viewnumber = viewnumber;
+        this.bonus = bonus;
+        this.postpoint = postpoint;
+        this.issolved = issolved;
+    }
 
     public int getPostid() {
         return postid;
@@ -113,11 +135,11 @@ public class Post {
         this.highli = highli;
     }
 
-    public Date getPosttime() {
+    public Timestamp getPosttime() {
         return posttime;
     }
 
-    public void setPosttime(Date posttime) {
+    public void setPosttime(Timestamp posttime) {
         this.posttime = posttime;
     }
 
