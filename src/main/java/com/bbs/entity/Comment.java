@@ -2,23 +2,18 @@ package com.bbs.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Entity
 @Table(name = "comment")
 public class Comment implements Serializable {
     private static final long serialVersionUID=15;
     /**
-     * 帖子ID
+     * 复合主键
      */
-    @Id
-    @Column(name = "post_id")
-    private int postid;
-    /**
-     * 用户ID
-     */
-    @Id
-    @Column(name = "user_id")
-    private int userid;
+    @EmbeddedId
+    private  CommentId id;
+
     /**
      * 评论内容
      */
@@ -28,27 +23,19 @@ public class Comment implements Serializable {
      * 评论时间
      */
     @Column(name = "comment_time")
-    private String time;
+    private Date time;
     /**
      * 标志位，评论是否被采纳
      */
     @Column(name = "comment_acc")
     private int accept;
 
-    public int getPostid() {
-        return postid;
+    public CommentId getId() {
+        return id;
     }
 
-    public void setPostid(int postid) {
-        this.postid = postid;
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setId(CommentId id) {
+        this.id = id;
     }
 
     public String getContent() {
@@ -59,11 +46,11 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -78,8 +65,7 @@ public class Comment implements Serializable {
     @Override
     public String toString() {
         return "Comment{" +
-                "postid=" + postid +
-                ", userid=" + userid +
+                "id=" + id +
                 ", content='" + content + '\'' +
                 ", time='" + time + '\'' +
                 ", accept=" + accept +
