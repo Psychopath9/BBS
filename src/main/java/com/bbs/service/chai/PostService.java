@@ -38,5 +38,32 @@ public class PostService {
         return dao.updatePostContent(post_id,post_content);
     }
 
+    /**
+     * 删帖
+     * @param post_id
+     * @return
+     */
+    public int deleteByPostId(int post_id){
+        return dao.deleteByPostId(post_id);
+
+    }
+    /**
+     * 更新帖子的置顶状态
+     * @param post_id
+     * @param top
+     * @return
+     */
+    public int updateTop(int post_id,int top) {
+        return dao.updateTop(post_id,top);
+    }
+    /**
+     * 更新帖子的加精状态
+     * @param post_id
+     * @param high
+     * @return
+     */
+    public int updateHighLight(int post_id,int high) {
+        return dao.updateHighLight(post_id,high);
+    }
 
 }

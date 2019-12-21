@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "post")
 public class Post {
+
     /**
      * 帖子ID
      */

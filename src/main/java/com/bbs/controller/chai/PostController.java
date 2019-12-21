@@ -73,5 +73,35 @@ public class PostController {
             return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
         }
     }
-  
+    @DeleteMapping(path = "/post")
+    public ResponseEntity<Result> delete(@RequestParam(value = "post_id")int post_id){
+        int res = service.deleteByPostId(post_id);
+        if(res==1){
+            return new ResponseEntity<>(ResultFactory.buildSuccessResult("删除成功"), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
+        }
+    }
+    @PutMapping(path = "/posttop")
+    public ResponseEntity<Result> updatetop(@RequestParam(value = "post_id")int post_id,@RequestParam(value = "post_top")int top){
+        int res = service.updateTop(post_id,top);
+        if(res==1){
+            return new ResponseEntity<>(ResultFactory.buildSuccessResult("置顶成功"), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
+        }
+    }
+    @PutMapping(path = "/posthigh")
+    public ResponseEntity<Result> updatehigh(@RequestParam(value = "post_id")int post_id,@RequestParam(value = "post_highli")int high){
+        int res = service.updateHighLight(post_id,high);
+        if(res==1){
+            return new ResponseEntity<>(ResultFactory.buildSuccessResult("置顶成功"), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
+        }
+    }
+
 }

@@ -29,7 +29,7 @@ public class Comment implements Serializable {
      */
     @Column(name = "comment_acc")
     private int accept;
-
+    //@OneToMany(cascade={CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="post")
     public CommentId getId() {
         return id;
     }
