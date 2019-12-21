@@ -1,5 +1,9 @@
 package com.bbs.result;
 
+
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "返回体统一类型，包括code，data，message")
 public class Result {
     private int code;
     private String message;
