@@ -13,10 +13,5 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class UserServiceTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    private UserService service;
-    @Test
-    public void findAll() {
-        logger.debug(service.findAll().toString());
-    }
+
 }
