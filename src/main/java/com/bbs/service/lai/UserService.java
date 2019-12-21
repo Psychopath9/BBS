@@ -5,6 +5,8 @@ import com.bbs.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private UserDao userDao;
@@ -25,6 +27,10 @@ public class UserService {
         }
     }
 
+    public List<User> findByUserid(Integer id) {
+        return userDao.findByUserid(id);
+    }
+
 
 
 
@@ -35,6 +41,9 @@ public class UserService {
         }else {
             return false;
         }
+    }
+    public int update(User user) {
+        return  userDao.updateUserById(user.getUserphone(), user.getUseroccu(), user.getUserorg(), user.getUserid());
     }
 
 }
