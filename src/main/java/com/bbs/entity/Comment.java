@@ -11,13 +11,13 @@ public class Comment implements Serializable {
      * 帖子ID
      */
     @Id
-    @JoinColumn(name = "post_id")
+    @Column(name = "post_id")
     private int postid;
     /**
      * 用户ID
      */
     @Id
-    @JoinColumn(name = "user_id")
+    @Column(name = "user_id")
     private int userid;
     /**
      * 评论内容

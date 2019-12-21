@@ -17,7 +17,7 @@ public class Post {
     /**
      * 用户ID
      */
-    @JoinColumn(name = "user_id")
+    @Column(name = "user_id")
     private int userid;
     /**
      * 帖子标题
