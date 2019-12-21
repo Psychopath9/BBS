@@ -1,6 +1,6 @@
 package com.bbs.service;
 
-import com.bbs.dao.PostDao;
+import com.bbs.dao.chai.PostDao;
 import com.bbs.entity.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
