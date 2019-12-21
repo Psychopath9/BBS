@@ -11,7 +11,6 @@ public class CommentId implements Serializable {
     @Column(name = "user_id")
     private int userid;
 
-
     public int getPostid() {
         return postid;
     }
