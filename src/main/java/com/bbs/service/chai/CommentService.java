@@ -20,7 +20,7 @@ public class CommentService {
      * @return
      */
     public int insert(Comment comment){
-        return dao.insertComments(comment.getId().getPostid(),comment.getId().getUserid(),comment.getContent(),comment.getTime(),comment.getAccept());
+        return dao.insertComments(comment.getId().getPostid(),comment.getId().getUserid(),comment.getContent(),comment.getId().getTime(),comment.getAccept());
     }
     /**
      * 采纳回复

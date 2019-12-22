@@ -20,15 +20,14 @@ public class CommentController {
 
 
     @PostMapping(path = "/comment")
-    public ResponseEntity<Result> addComment(@RequestParam(value = "post_id") int post_id, @RequestParam(value = "comment_con") String content,@RequestParam(value = "user_id") int userid) {
+    public ResponseEntity<Result> addComment( int post_id, String content, int userid) {
 
 
         CommentId id = new CommentId();
         id.setPostid(post_id);
         id.setUserid(userid);
-
-
-        Comment comment = new Comment(id, content, new Timestamp(System.currentTimeMillis()), 0);
+        id.setTime(new Timestamp(System.currentTimeMillis()));
+        Comment comment = new Comment(id, content, 0);
         int result = service.insert(comment);
         if (result == 1) {
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(comment), HttpStatus.OK);
@@ -53,7 +52,7 @@ public class CommentController {
 
     }
     @GetMapping(path="/comment/{id}")
-    public ResponseEntity<Result> GetComment(@PathVariable(value = "id")int id){
+    public ResponseEntity<Result> GetComment(int id){
         List<Comment> list = service.findCommentsByPostId(id);
         if (list!=null){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(list), HttpStatus.OK);
