@@ -38,18 +38,11 @@ public class PostController {
         int post_highli = 0;
         int view_number = 0;
         int is_solved = 0;
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-//        Post post  = new Post();
-//        post.setPosttop(0);
-//        post.setHighli(0);
-//        post.setViewnumber(0);
-//        post.setIssolved(0);
-
+        Timestamp time = new Timestamp(System.currentTimeMillis()+1000*60*60*8);
         Post post  = new Post(userid,title,content,post_top,post_highli,time,view_number,have_bonus,point,is_solved);
-        dao.saveAndFlush(post);
-        int res = service.saveSubmitPost(userid,title,content,post_top,post_highli,time,view_number,have_bonus,point,is_solved);
-        if(res==1){
-            return new ResponseEntity<>(ResultFactory.buildSuccessResult(post), HttpStatus.OK);
+        Post post1 = service.save(post);
+        if(post1!=null){
+            return new ResponseEntity<>(ResultFactory.buildSuccessResult(post1), HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
