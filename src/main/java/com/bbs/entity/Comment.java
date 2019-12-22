@@ -30,6 +30,10 @@ public class Comment implements Serializable {
      */
     @Column(name = "comment_acc")
     private int accept;
+
+    public Comment() {
+
+    }
     public Comment(CommentId id,String content,Timestamp time,int accept){
         this.id=id;
         this.content=content;

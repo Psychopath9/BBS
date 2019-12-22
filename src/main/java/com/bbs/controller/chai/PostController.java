@@ -31,11 +31,10 @@ public class PostController {
      * @return
      */
     @PostMapping(path = "/post")
-    public ResponseEntity<Result> submitpost(@RequestParam(value = "post_title")String title,@RequestParam(value = "user_id")int userid,@RequestParam(value = "post_content")String content,@RequestParam(value = "post_point")int point){
+    public ResponseEntity<Result> submitpost(@RequestParam(value = "post_title")String title,@RequestParam(value = "user_id")int userid,@RequestParam(value = "post_content")String content,@RequestParam(value = "post_point")int point,@RequestParam(value = "have_bonus")int have_bonus){
         int post_top = 0;
         int post_highli = 0;
         int view_number = 0;
-        int have_bonus =0;
         int is_solved = 0;
         Timestamp time = new Timestamp(System.currentTimeMillis());
         Post post  = new Post(userid,title,content,post_top,post_highli,time,view_number,have_bonus,point,is_solved);
@@ -49,13 +48,15 @@ public class PostController {
 
     }
 
+
+
     /**
      * 根据post_id查询帖子内容
      * @param post_id
      * @return
      */
-    @GetMapping(path = "/post")
-    public ResponseEntity<Result> findpostByPostid(@RequestParam(value = "post_id")int post_id){
+    @GetMapping(path = "/post/{post_id}")
+    public ResponseEntity<Result> findpostByPostid(@PathVariable(value = "post_id")int post_id){
         Post post = service.findByPostId(post_id);
         if(post!=null){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(post), HttpStatus.OK);

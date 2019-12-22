@@ -33,7 +33,7 @@ public class CommentService {
      * @param post_id
      * @return
      */
-    public List<Comment> findCommentsByPostId(String post_id) {
-        return dao.findCommentsByPostid(Integer.parseInt(post_id));
+    public List<Comment> findCommentsByPostId(int post_id) {
+        return dao.findCommentsByPostid(post_id);
     }
 }
