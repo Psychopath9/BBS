@@ -38,13 +38,16 @@ public class PostController {
         int is_solved = 0;
         Timestamp time = new Timestamp(System.currentTimeMillis());
         Post post  = new Post(userid,title,content,post_top,post_highli,time,view_number,have_bonus,point,is_solved);
-        int res = service.saveSubmitPost(userid,title,content,post_top,post_highli,time,view_number,have_bonus,point,is_solved);
-        if(res==1){
-            return new ResponseEntity<>(ResultFactory.buildSuccessResult(post), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
-        }
+        Post post1 = service.save(post);
+
+        return new ResponseEntity<>(ResultFactory.buildSuccessResult(post1.getPostid()), HttpStatus.OK);
+//        int res = service.saveSubmitPost(userid,title,content,post_top,post_highli,time,view_number,have_bonus,point,is_solved);
+//        if(res==1){
+//            return new ResponseEntity<>(ResultFactory.buildSuccessResult(post), HttpStatus.OK);
+//        }
+//        else {
+//            return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
+//        }
 
     }
 
