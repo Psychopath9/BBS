@@ -47,13 +47,15 @@ public class PostController {
 
     }
 
+
+
     /**
      * 根据post_id查询帖子内容
      * @param post_id
      * @return
      */
-    @GetMapping(path = "/post")
-    public ResponseEntity<Result> findpostByPostid(@RequestParam(value = "post_id")int post_id){
+    @GetMapping(path = "/post/{post_id}")
+    public ResponseEntity<Result> findpostByPostid(@PathVariable(value = "post_id")int post_id){
         Post post = service.findByPostId(post_id);
         if(post!=null){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(post), HttpStatus.OK);
