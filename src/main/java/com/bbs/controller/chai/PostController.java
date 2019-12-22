@@ -1,5 +1,6 @@
 package com.bbs.controller.chai;
 
+import com.bbs.dao.chai.PostDao;
 import com.bbs.entity.Post;
 import com.bbs.entity.User;
 import com.bbs.result.Result;
@@ -21,6 +22,7 @@ import java.util.List;
 public class PostController {
     @Autowired
     PostService service;
+    PostDao dao;
 
     /**
      * 发布帖子
@@ -37,7 +39,14 @@ public class PostController {
         int view_number = 0;
         int is_solved = 0;
         Timestamp time = new Timestamp(System.currentTimeMillis());
+//        Post post  = new Post();
+//        post.setPosttop(0);
+//        post.setHighli(0);
+//        post.setViewnumber(0);
+//        post.setIssolved(0);
+
         Post post  = new Post(userid,title,content,post_top,post_highli,time,view_number,have_bonus,point,is_solved);
+        dao.saveAndFlush(post);
         int res = service.saveSubmitPost(userid,title,content,post_top,post_highli,time,view_number,have_bonus,point,is_solved);
         if(res==1){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(post), HttpStatus.OK);
@@ -71,8 +80,8 @@ public class PostController {
      * @param title
      * @return
      */
-    @GetMapping(path = "/posttitle")
-    public ResponseEntity<Result> findByTitleLike(@RequestParam(value = "post_title")String title){
+    @GetMapping(path = "/posttitle/{post_title}")
+    public ResponseEntity<Result> findByTitleLike(@PathVariable("post_title")String title){
         List<Post> list = service.findByTitleLike(title);
         if(list!=null){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(list), HttpStatus.OK);
@@ -129,15 +138,15 @@ public class PostController {
 
 
     /**
-     * 根据post_id更新帖子内容
+     * 根据post_id更新帖子内容、标题
      * @param post_id
      * @param content
      * @return
      */
-    @PutMapping(path = "/post")
-    public ResponseEntity<Result> update(@RequestParam(value = "post_id")int post_id,@RequestParam(value = "post_content")String content){
-        int res = service.updatePostContent(post_id,content);
-        Post post = new Post(post_id,content);
+    @PutMapping(path = "/post/{post_id}")
+    public ResponseEntity<Result> update(@PathVariable("post_id")int post_id,@RequestParam(value = "post_content")String content,@RequestParam(value = "post_title")String title){
+        int res = service.updatePostContent(post_id,content,title);
+        Post post = new Post(post_id,content,title);
         if(res==1){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(post), HttpStatus.OK);
         }
@@ -147,12 +156,12 @@ public class PostController {
     }
 
     /**
-     * 根据post_id删除帖子(管理员操作)
+     * 根据post_id删除帖子(管理员/发帖人操作)
      * @param post_id
      * @return
      */
-    @DeleteMapping(path = "/post")
-    public ResponseEntity<Result> delete(@RequestParam(value = "post_id")int post_id){
+    @DeleteMapping(path = "/post/{post_id}")
+    public ResponseEntity<Result> delete(@PathVariable("post_id")int post_id){
         int res = service.deleteByPostId(post_id);
         if(res==1){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult("删除成功"), HttpStatus.OK);
@@ -167,8 +176,8 @@ public class PostController {
      * @param post_id
      * @return
      */
-    @PutMapping(path = "/posttop")
-    public ResponseEntity<Result> updatetop(@RequestParam(value = "post_id")int post_id){
+    @PutMapping(path = "/posttop/{post_id}")
+    public ResponseEntity<Result> updatetop(@PathVariable("post_id")int post_id){
         Post post = service.findByPostId(post_id);
         int res;
         if(post.getPosttop()==0){
@@ -191,8 +200,8 @@ public class PostController {
      * @param post_id
      * @return
      */
-    @PutMapping(path = "/posthigh")
-    public ResponseEntity<Result> updatehigh(@RequestParam(value = "post_id")int post_id){
+    @PutMapping(path = "/posthigh/{post_id}")
+    public ResponseEntity<Result> updatehigh(@PathVariable("post_id")int post_id){
         Post post = service.findByPostId(post_id);
         int res;
         if(post.getHighli()==0){

@@ -49,8 +49,8 @@ public interface PostDao extends JpaRepository<Post,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "update post set post_content = ?2 where post_id = ?1",nativeQuery = true)
-    int updatePostContent(int post_id , String post_content);
+    @Query(value = "update post set post_content = ?2,post_title = ?3 where post_id = ?1",nativeQuery = true)
+    int updatePostContent(int post_id , String post_content,String post_title);
 
     @Transactional
     @Modifying

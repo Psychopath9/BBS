@@ -61,13 +61,13 @@ public class PostService {
         return  dao.findAllByViewnumber();
     }
     /**
-     * 更新内容
+     * 更新内容、标题
      * @param
      * @param
      * @return
      */
-    public int updatePostContent(int post_id , String post_content){
-        return dao.updatePostContent(post_id,post_content);
+    public int updatePostContent(int post_id , String post_content,String post_title){
+        return dao.updatePostContent(post_id,post_content,post_title);
     }
 
     /**
