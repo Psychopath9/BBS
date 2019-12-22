@@ -5,6 +5,7 @@ import com.bbs.entity.User;
 import com.bbs.result.Result;
 import com.bbs.result.ResultFactory;
 import com.bbs.service.chai.PostService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -88,6 +89,21 @@ public class PostController {
         List<Post> post = service.findAllByPostTime();
         if(post!=null){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(post), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
+        }
+    }
+
+    /**
+     * 根据时间降序返回所有加精帖子
+     * @return
+     */
+    @GetMapping(path = "/posthighbytime")
+    public ResponseEntity<Result> findAllhigh(){
+        List<Post> list = service.findAllPostHighLi();
+        if(list!=null){
+            return new ResponseEntity<>(ResultFactory.buildSuccessResult(list), HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
@@ -191,5 +207,18 @@ public class PostController {
             return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
         }
     }
+    @PutMapping(path = "/postview/{post_id}")
+    public ResponseEntity<Result> updateview(@PathVariable("post_id")int post_id){
+        int res = service.updatePostView(post_id);
+        int view = service.findviewByPostid(post_id);
+        if(res==1){
+            return new ResponseEntity<>(ResultFactory.buildSuccessResult(view), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);
+        }
+    }
+
+
 
 }

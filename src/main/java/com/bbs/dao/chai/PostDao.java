@@ -21,6 +21,9 @@ public interface PostDao extends JpaRepository<Post,Integer> {
     @Query(value = "select * from post where post_id=?1",nativeQuery = true)
     Post findByPostid(int post_id);
 
+    @Query(value = "select * from post where post_highli = 1 order by post_time desc",nativeQuery = true)
+    List<Post> findAllPostHighLightOrderByPostTimeDesc();
+
     @Query(value = "select * from post where post_title like %?1% order by post_time desc ",nativeQuery = true)
     List<Post> findByTitleLike(String title);
 
@@ -48,6 +51,14 @@ public interface PostDao extends JpaRepository<Post,Integer> {
     @Modifying
     @Query(value = "update post set post_content = ?2 where post_id = ?1",nativeQuery = true)
     int updatePostContent(int post_id , String post_content);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update post set view_number = view_number + 1 where post_id = ?1",nativeQuery = true)
+    int updatePostView(int post_id);
+
+    @Query(value = "select view_number from post where post_id= ?1",nativeQuery = true)
+    int findviewByPostid(int post_id);
 
 
 }
