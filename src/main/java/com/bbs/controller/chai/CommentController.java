@@ -22,7 +22,7 @@ public class CommentController {
     private CommentService service;
 
     @PostMapping (path = "/comment")
-    public ResponseEntity<Result> addComment(@RequestParam(value = "post_title")int post_id, @RequestParam(value = "post_content")String content, int userid){
+    public ResponseEntity<Result> addComment(@RequestParam(value = "post_id")int post_id, @RequestParam(value = "comment_con")String content, @RequestParam(value = "user_id")int userid){
 //        User user = (User)session.getAttribute("user");
 //        if(user==null){
 //            return new ResponseEntity<>(ResultFactory.buildResult(2001,"未登录不能进行评论", null),HttpStatus.OK);

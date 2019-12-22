@@ -30,11 +30,10 @@ public class PostController {
      * @return
      */
     @PostMapping(path = "/post")
-    public ResponseEntity<Result> submitpost(@RequestParam(value = "post_title")String title,@RequestParam(value = "user_id")int userid,@RequestParam(value = "post_content")String content,@RequestParam(value = "post_point")int point){
+    public ResponseEntity<Result> submitpost(@RequestParam(value = "post_title")String title,@RequestParam(value = "user_id")int userid,@RequestParam(value = "post_content")String content,@RequestParam(value = "post_point")int point,@RequestParam(value = "have_bonus")int have_bonus){
         int post_top = 0;
         int post_highli = 0;
         int view_number = 0;
-        int have_bonus =0;
         int is_solved = 0;
         Timestamp time = new Timestamp(System.currentTimeMillis());
         Post post  = new Post(userid,title,content,post_top,post_highli,time,view_number,have_bonus,point,is_solved);
