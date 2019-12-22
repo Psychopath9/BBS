@@ -22,4 +22,8 @@ public class PostTagService {
     public void deleteByPostTagPostid(Integer postid){
         postTagDao.deleteByPostTagIdPostid(postid);
     }
+
+    public void deleteByPostTagIdPostidAndPostTagIdTagid(Integer postid,Integer tagid){
+        postTagDao.deleteByPostTagIdPostidAndPostTagIdTagid(postid,tagid);
+    }
 }

@@ -1,5 +1,7 @@
 package com.bbs.entity;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
@@ -70,11 +72,13 @@ public class Post {
     public Post(){
 
     }
-    public Post(int postid,String postcontent){
+    public Post(int postid,String postcontent,String posttitle){
         this.postid = postid;
         this.postcontent = postcontent;
+        this.posttitle = posttitle;
 
     }
+
     public Post(int userid, String posttitle, String postcontent, int posttop, int highli, Timestamp posttime, int viewnumber, int bonus, int postpoint, int issolved){
         this.userid = userid;
         this.posttitle = posttitle;
@@ -87,6 +91,7 @@ public class Post {
         this.postpoint = postpoint;
         this.issolved = issolved;
     }
+
 
     public int getPostid() {
         return postid;
