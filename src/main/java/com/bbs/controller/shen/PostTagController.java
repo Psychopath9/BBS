@@ -49,7 +49,6 @@ public class PostTagController {
     public ResponseEntity<Result> deleteByPostTagIdPostid(@RequestParam(value = "postid")Integer postid){
         List<PostTag> list = new ArrayList<>();
         list = postTagService.findByPostTagIdPostid(postid);
-        System.out.println(list);
         if (list!=null){
             postTagService.deleteByPostTagPostid(postid);
             return new ResponseEntity<>(ResultFactory.buildSuccessResult("成功"), HttpStatus.OK);
@@ -57,5 +56,27 @@ public class PostTagController {
         else{
             return new ResponseEntity<>(ResultFactory.buildFailResult("删除失败"), HttpStatus.OK);
         }
+    }
+    @DeleteMapping("/PostTag_2")
+    public ResponseEntity<Result> deleteByPostTagIdPostidAndPostTagIdTagid
+            (@RequestParam(value = "postid")Integer postid,@RequestParam(value = "tagid")Integer tagid){
+        List<PostTag> list = new ArrayList<>();
+        list = postTagService.findByPostTagIdPostid(postid);
+        for (PostTag postTag:list) {
+            if (postTag.getPostTagId().getPostid().equals(postid) && postTag.getPostTagId().getTagid().equals(tagid)){
+                System.out.println("dasdas");
+                postTagService.deleteByPostTagIdPostidAndPostTagIdTagid(postid, tagid);
+                return new ResponseEntity<>(ResultFactory.buildFailResult("成功"), HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(ResultFactory.buildFailResult("删除失败"), HttpStatus.OK);
+
+//        if (list!=null){
+//            postTagService.deleteByPostTagPostid(postid);
+//            return new ResponseEntity<>(ResultFactory.buildSuccessResult("成功"), HttpStatus.OK);
+//        }
+//        else{
+//            return new ResponseEntity<>(ResultFactory.buildFailResult("删除失败"), HttpStatus.OK);
+//        }
     }
 }

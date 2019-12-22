@@ -14,4 +14,6 @@ public interface PostTagDao extends JpaRepository<PostTag, PostTagId> {
     public List<PostTag> findByPostTagIdPostid(Integer postid);
     @Transactional
     public void deleteByPostTagIdPostid(Integer postid);
+    @Transactional
+    public void deleteByPostTagIdPostidAndPostTagIdTagid(Integer postid,Integer tagid);
 }
