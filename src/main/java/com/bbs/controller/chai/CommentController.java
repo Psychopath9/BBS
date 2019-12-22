@@ -20,7 +20,7 @@ public class CommentController {
 
 
     @PostMapping(path = "/comment")
-    public ResponseEntity<Result> addComment( int post_id, String content, int userid) {
+    public ResponseEntity<Result> addComment(int post_id, String content, int userid) {
 
 
         CommentId id = new CommentId();
@@ -52,7 +52,7 @@ public class CommentController {
 
     }
     @GetMapping(path="/comment/{id}")
-    public ResponseEntity<Result> GetComment(int id){
+    public ResponseEntity<Result> GetComment(@PathVariable("id")int id){
         List<Comment> list = service.findCommentsByPostId(id);
         if (list!=null){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(list), HttpStatus.OK);
