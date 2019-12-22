@@ -138,9 +138,9 @@ public class PostController {
      * @return
      */
     @PutMapping(path = "/post")
-    public ResponseEntity<Result> update(@RequestParam(value = "post_id")int post_id,@RequestParam(value = "post_content")String content){
-        int res = service.updatePostContent(post_id,content);
-        Post post = new Post(post_id,content);
+    public ResponseEntity<Result> update(@RequestParam(value = "post_id")int post_id,@RequestParam(value = "post_content")String content,@RequestParam(value = "post_title")String title){
+        int res = service.updatePostContent(post_id,content, title);
+        Post post = new Post(post_id,content, title);
         if(res==1){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(post), HttpStatus.OK);
         }
