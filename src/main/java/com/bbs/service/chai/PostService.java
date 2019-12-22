@@ -28,6 +28,22 @@ public class PostService {
     public Post findByPostId(int post_id) {
         return dao.findByPostid(post_id);
     }
+
+    /**
+     * 根据时间降序返回所有帖子
+     * @return
+     */
+    public List<Post> findAllByPostTime(){
+        return dao.findAllByPostTime();
+    }
+
+    /**
+     * 根据浏览数降序返回帖子
+     * @return
+     */
+    public List<Post> findAllByViewnumber(){
+        return  dao.findAllByViewnumber();
+    }
     /**
      * 更新内容
      * @param
@@ -64,6 +80,15 @@ public class PostService {
      */
     public int updateHighLight(int post_id,int high) {
         return dao.updateHighLight(post_id,high);
+    }
+
+    /**
+     * 根据帖子标题进行模糊查询
+     * @param title
+     * @return
+     */
+    public List<Post> findByTitleLike(String title){
+        return  dao.findByTitleLike(title);
     }
 
 }

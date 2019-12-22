@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -23,7 +24,7 @@ public interface CommentDao extends JpaRepository<Comment,Integer> {
     @Transactional
     @Modifying
     @Query(value = "insert into comment values (?1,?2,?3,?4,?5)",nativeQuery = true)
-    int insertComments(int postid,int userid,String content,Date time,int accpet);
+    int insertComments(int postid, int userid, String content, Timestamp time, int accpet);
 
     @Transactional
     @Modifying

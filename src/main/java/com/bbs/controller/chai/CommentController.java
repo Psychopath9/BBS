@@ -12,29 +12,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @RestController
 public class CommentController {
     @Autowired
     private CommentService service;
 
-    @RequestMapping(value = "comment",method = RequestMethod.POST)
-    public ResponseEntity<Result> addComment(HttpServletRequest request){
-        int postid = Integer.parseInt(request.getParameter("post_id"));
-        String content = request.getParameter("post__con");
-        User user = (User)request.getSession().getAttribute("user");
-        if(user==null){
-            return new ResponseEntity<>(ResultFactory.buildResult(2001,"未登录不能进行评论", null),HttpStatus.OK);
-        }
-        int userid = user.getUserid();
-        Comment comment = new Comment();
+    @PostMapping (path = "/comment")
+    public ResponseEntity<Result> addComment(@RequestParam(value = "post_title")int post_id, @RequestParam(value = "post_content")String content, int userid){
+//        User user = (User)session.getAttribute("user");
+//        if(user==null){
+//            return new ResponseEntity<>(ResultFactory.buildResult(2001,"未登录不能进行评论", null),HttpStatus.OK);
+//        }
+//        int userid = user.getUserid();
+
         CommentId id = new CommentId();
-        id.setPostid(postid);
+        id.setPostid(post_id);
         id.setUserid(userid);
-        comment.setId(id);
-        comment.setContent(content);
-        comment.setAccept(0);
+//        comment.setId(id);
+//        comment.setContent(content);
+//        comment.setAccept(0);
+        Comment comment = new Comment(id,content,new Timestamp(System.currentTimeMillis()),0);
          int result = service.insert(comment);
          if(result==1){
              return new ResponseEntity<>(ResultFactory.buildSuccessResult(comment), HttpStatus.OK);
@@ -44,13 +45,15 @@ public class CommentController {
          }
 
     }
-    @RequestMapping(value = "accept",method = RequestMethod.POST)
-    public ResponseEntity<Result> updateAccept(HttpServletRequest request){
-         int postid = Integer.parseInt(request.getParameter("post_id"));
-         int userid= Integer.parseInt(request.getParameter("user_id"));
-         int result = service.updateAccept(1,postid,userid);
+    @PutMapping(path = "/comment")
+    public ResponseEntity<Result> updateAccept(@RequestParam(value = "post_id")int post_id,@RequestParam(value = "user_id")int user_id){
+         CommentId id = new CommentId();
+         id.setUserid(user_id);
+         id.setPostid(post_id);
+         Comment comment = new Comment(id);
+        int result = service.updateAccept(1,post_id,user_id);
         if(result==1){
-            return new ResponseEntity<>(ResultFactory.buildResult(2012,"采纳成功", userid),HttpStatus.OK);
+            return new ResponseEntity<>(ResultFactory.buildSuccessResult(comment), HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(ResultFactory.buildFailResult("失败"), HttpStatus.OK);

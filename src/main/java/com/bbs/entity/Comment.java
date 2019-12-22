@@ -3,6 +3,7 @@ package com.bbs.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "comment")
@@ -23,13 +24,22 @@ public class Comment implements Serializable {
      * 评论时间
      */
     @Column(name = "comment_time")
-    private Date time;
+    private Timestamp time;
     /**
      * 标志位，评论是否被采纳
      */
     @Column(name = "comment_acc")
     private int accept;
-    //@OneToMany(cascade={CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="post")
+    public Comment(CommentId id,String content,Timestamp time,int accept){
+        this.id=id;
+        this.content=content;
+        this.time = time;
+        this.accept =accept;
+
+    }
+    public Comment(CommentId id){
+        this.id =id;
+    }
     public CommentId getId() {
         return id;
     }
@@ -46,11 +56,11 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
-    public Date getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 

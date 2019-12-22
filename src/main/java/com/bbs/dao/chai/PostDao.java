@@ -21,6 +21,9 @@ public interface PostDao extends JpaRepository<Post,Integer> {
     @Query(value = "select * from post where post_id=?1",nativeQuery = true)
     Post findByPostid(int post_id);
 
+    @Query(value = "select * from post where post_title like %?1% order by post_time desc ",nativeQuery = true)
+    List<Post> findByTitleLike(String title);
+
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value = "update post set post_highli = ?2 where post_id = ?1",nativeQuery = true)
