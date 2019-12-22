@@ -20,7 +20,7 @@ public class CommentService {
      * @return
      */
     public int insert(Comment comment){
-        return dao.insertComments(comment.getId().getPostid(),comment.getId().getUserid(),comment.getContent(),comment.getTime(),comment.getAccept());
+        return dao.insertComments(comment.getId().getPostid(),comment.getId().getUserid(),comment.getContent(),comment.getId().getTime(),comment.getAccept());
     }
     /**
      * 采纳回复
@@ -33,7 +33,7 @@ public class CommentService {
      * @param post_id
      * @return
      */
-    public List<Comment> findCommentsByPostId(String post_id) {
-        return dao.findCommentsByPostid(Integer.parseInt(post_id));
+    public List<Comment> findCommentsByPostId(int post_id) {
+        return dao.findCommentsByPostid(post_id);
     }
 }

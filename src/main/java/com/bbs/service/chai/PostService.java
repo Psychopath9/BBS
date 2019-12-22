@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +28,37 @@ public class PostService {
      */
     public Post findByPostId(int post_id) {
         return dao.findByPostid(post_id);
+    }
+
+    /**
+     * 根据时间降序返回所有帖子
+     * @return
+     */
+    public List<Post> findAllByPostTime(){
+        return dao.findAllByPostTime();
+    }
+
+
+//    /**
+//     * 从传入的 posts列表中挑选出所有的置顶帖
+//     * @param posts
+//     * @return
+//     */
+//    public List<Post> selectTop(List<Post> posts) {
+//        List<Post> list = new ArrayList<>();
+//        posts.forEach(p->{
+//            if(p.getPosttop() == 1)
+//                list.add(p);
+//        });
+//        return list;
+//    }
+
+    /**
+     * 根据浏览数降序返回帖子
+     * @return
+     */
+    public List<Post> findAllByViewnumber(){
+        return  dao.findAllByViewnumber();
     }
     /**
      * 更新内容
@@ -65,5 +97,41 @@ public class PostService {
     public int updateHighLight(int post_id,int high) {
         return dao.updateHighLight(post_id,high);
     }
+
+    /**
+     * 根据帖子标题进行模糊查询
+     * @param title
+     * @return
+     */
+    public List<Post> findByTitleLike(String title){
+        return  dao.findByTitleLike(title);
+    }
+    /**
+     * 增加帖子的浏览数
+     * @param post_id
+     * @return
+     */
+    public int updatePostView(int post_id) {
+        return dao.updatePostView(post_id);
+    }
+
+    /**
+     * 查询所有精华帖子通过帖子发布时间降序
+     * @return
+     */
+    public List<Post> findAllPostHighLi(){
+        return dao.findAllPostHighLightOrderByPostTimeDesc();
+    }
+
+    /**
+     * 根据post_id返回浏览数
+     * @param post_id
+     * @return
+     */
+
+    public int findviewByPostid(int post_id){
+        return dao.findviewByPostid(post_id);
+    }
+
 
 }
