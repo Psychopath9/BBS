@@ -31,6 +31,21 @@ public class PostTagController {
             return new ResponseEntity<>(ResultFactory.buildFailResult("查找失败"), HttpStatus.OK);
         }
     }
+    @GetMapping("/PostTag_2")
+    public ResponseEntity<Result> findByPostTagIdTagid(@RequestParam(value = "tagid")Integer tagid){
+        List<PostTag> list = new ArrayList<>();
+        List<Integer> list1 = new ArrayList<>();
+        list = postTagService.findByPostTagIdTagid(tagid);
+        for (PostTag postTag:list){
+            list1.add(postTag.getPostTagId().getPostid());
+        }
+        if (list1.size()!=0){
+            return new ResponseEntity<>(ResultFactory.buildSuccessResult(list1), HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(ResultFactory.buildFailResult("查找失败"), HttpStatus.OK);
+        }
+    }
     @PostMapping("/PostTag")
     public ResponseEntity<Result> save(@RequestParam(value = "postid")Integer postid,@RequestParam(value = "tagid")Integer tagid){
         List<PostTag> list = new ArrayList<>();
@@ -63,7 +78,6 @@ public class PostTagController {
         list = postTagService.findByPostTagIdPostid(postid);
         for (PostTag postTag:list) {
             if (postTag.getPostTagId().getPostid().equals(postid) && postTag.getPostTagId().getTagid().equals(tagid)){
-                System.out.println("dasdas");
                 postTagService.deleteByPostTagIdPostidAndPostTagIdTagid(postid, tagid);
                 return new ResponseEntity<>(ResultFactory.buildFailResult("成功"), HttpStatus.OK);
             }
