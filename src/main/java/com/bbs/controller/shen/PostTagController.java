@@ -20,11 +20,10 @@ public class PostTagController {
     @Autowired
     private PostTagService postTagService;
 
-    @GetMapping("/PostTag")
-    public ResponseEntity<Result> findByPostTagIdPostid(@RequestParam(value = "postid")Integer postid){
+    @GetMapping("/PostTag/{id}")
+    public ResponseEntity<Result> findByPostTagIdPostid(@PathVariable(value = "id")Integer postid){
         List<PostTag> list = new ArrayList<>();
         list = postTagService.findByPostTagIdPostid(postid);
-        System.out.println(list);
         if (list!=null){
             return new ResponseEntity<>(ResultFactory.buildSuccessResult(list), HttpStatus.OK);
         }
