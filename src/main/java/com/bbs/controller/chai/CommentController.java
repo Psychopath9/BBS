@@ -26,7 +26,7 @@ public class CommentController {
         CommentId id = new CommentId();
         id.setPostid(post_id);
         id.setUserid(userid);
-        id.setTime(new Timestamp(System.currentTimeMillis()));
+        id.setTime(new Timestamp(System.currentTimeMillis()+1000*60*60*8));
         Comment comment = new Comment(id, content, 0);
         int result = service.insert(comment);
         if (result == 1) {
