@@ -15,6 +15,9 @@ public class PostTagService {
     public List<PostTag> findByPostTagIdPostid(Integer postid){
         return postTagDao.findByPostTagIdPostid(postid);
     }
+    public List<PostTag> findByPostTagIdTagid(Integer tagid){
+        return postTagDao.findByPostTagIdTagid(tagid);
+    }
     public void sava(PostTag postTag){
         postTagDao.save(postTag);
     }

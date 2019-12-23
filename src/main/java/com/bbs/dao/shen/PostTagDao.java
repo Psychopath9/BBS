@@ -12,6 +12,7 @@ import java.util.List;
 public interface PostTagDao extends JpaRepository<PostTag, PostTagId> {
 //    @Query(value = "select * from post_tag where post_id = ?1",nativeQuery = true)
     public List<PostTag> findByPostTagIdPostid(Integer postid);
+    public List<PostTag> findByPostTagIdTagid(Integer tagid);
     @Transactional
     public void deleteByPostTagIdPostid(Integer postid);
     @Transactional
